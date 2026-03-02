@@ -44,6 +44,40 @@ class CharacterTest {
     }
 
     @Test
+    void mageSetMana_clampedToMaxMana() {
+        Mage mage = new Mage("TestMage");
+        int maxMana = mage.getMaxMana();
+
+        mage.setMana(maxMana + 100);
+        assertEquals(maxMana, mage.getMana(), "Mana should be clamped to maxMana");
+    }
+
+    @Test
+    void mageSetMana_doesNotDropBelowZero() {
+        Mage mage = new Mage("TestMage");
+
+        mage.setMana(-50);
+        assertEquals(0, mage.getMana(), "Mana should not drop below 0");
+    }
+
+    @Test
+    void rogueSetEnergy_clampedToMaxEnergy() {
+        Rogue rogue = new Rogue("TestRogue");
+        int maxEnergy = rogue.getMaxEnergy();
+
+        rogue.setEnergy(maxEnergy + 100);
+        assertEquals(maxEnergy, rogue.getEnergy(), "Energy should be clamped to maxEnergy");
+    }
+
+    @Test
+    void rogueSetEnergy_doesNotDropBelowZero() {
+        Rogue rogue = new Rogue("TestRogue");
+
+        rogue.setEnergy(-50);
+        assertEquals(0, rogue.getEnergy(), "Energy should not drop below 0");
+    }
+
+    @Test
     void isAlive_returnsCorrectStatus() {
         // Arrange
         Warrior warrior = new Warrior("TestDummy");

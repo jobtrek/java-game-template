@@ -42,13 +42,7 @@ public abstract class Character {
     }
 
     public void setHp(int hp) {
-        if (hp < 0) {
-            this.hp = 0;
-        } else if (hp > maxHp) {
-            this.hp = maxHp;
-        } else {
-            this.hp = hp;
-        }
+        this.hp = Math.clamp(hp, 0, maxHp);
     }
 
     public void takeDamage(int amount) {
@@ -71,7 +65,7 @@ public abstract class Character {
 
     @Override
     public String toString() {
-        return String.format("%s [HP: %d/%d, POW: %d, DEF: %d, SPD: %d]", 
-                             name, hp, maxHp, power, defense, speed);
+        return String.format("[HP: %d/%d, POW: %d, DEF: %d, SPD: %d]",
+                             hp, maxHp, power, defense, speed);
     }
 }

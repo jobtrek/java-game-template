@@ -56,7 +56,7 @@ public class BattleEngine {
         System.out.println("Choose your action:");
         System.out.println(player.describeActions());
         
-        int choice = ch.jobtrek.game.Main.readValidInt(scanner, "Choice (1-2): ", 1, 2);
+        int choice = InputUtils.readValidInt(scanner, "Choice (1-2): ", 1, 2);
 
         if (choice == 1) {
             player.executeAttack(target);
@@ -66,8 +66,7 @@ public class BattleEngine {
     }
 
     private void handleAITurn(Character ai, Character target) {
-        // Simple AI: 50% chance for special if it makes sense (random choice for now)
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.4) {
             ai.useSpecialAbility(target);
         } else {
             ai.executeAttack(target);
@@ -77,9 +76,9 @@ public class BattleEngine {
     private void displayResult() {
         System.out.println("\n=== BATTLE OVER ===");
         if (player.isAlive()) {
-            System.out.println("Victory! " + player.getName() + " won in " + (round - 1) + " rounds.");
+            System.out.println("Victory! " + player.getName() + " won in " + (round - 1) + " rounds with " + player.getHp() + "/" + player.getMaxHp() + " HP remaining.");
         } else {
-            System.out.println("Defeat! " + opponent.getName() + " defeated " + player.getName() + ".");
+            System.out.println("Defeat! " + opponent.getName() + " defeated " + player.getName() + " in " + (round - 1) + " rounds with " + opponent.getHp() + "/" + opponent.getMaxHp() + " HP remaining.");
         }
     }
 }

@@ -33,6 +33,6 @@ public class Warrior extends Character {
 
     @Override
     public String toString() {
-        return "Warrior " + super.toString();
+        return getName() + " (Warrior) " + super.toString();
     }
 }

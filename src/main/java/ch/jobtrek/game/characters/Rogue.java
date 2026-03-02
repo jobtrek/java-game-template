@@ -16,14 +16,12 @@ public class Rogue extends Character {
         return energy;
     }
 
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
     public void setEnergy(int energy) {
-        if (energy < 0) {
-            this.energy = 0;
-        } else if (energy > maxEnergy) {
-            this.energy = maxEnergy;
-        } else {
-            this.energy = energy;
-        }
+        this.energy = Math.clamp(energy, 0, maxEnergy);
     }
 
     @Override
@@ -68,6 +66,6 @@ public class Rogue extends Character {
 
     @Override
     public String toString() {
-        return "Rogue " + super.toString() + " [ENERGY: " + energy + "/" + maxEnergy + "]";
+        return getName() + " (Rogue) " + super.toString() + " [ENERGY: " + energy + "/" + maxEnergy + "]";
     }
 }

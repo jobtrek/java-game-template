@@ -16,14 +16,12 @@ public class Mage extends Character {
         return mana;
     }
 
+    public int getMaxMana() {
+        return maxMana;
+    }
+
     public void setMana(int mana) {
-        if (mana < 0) {
-            this.mana = 0;
-        } else if (mana > maxMana) {
-            this.mana = maxMana;
-        } else {
-            this.mana = mana;
-        }
+        this.mana = Math.clamp(mana, 0, maxMana);
     }
 
     @Override
@@ -72,6 +70,6 @@ public class Mage extends Character {
 
     @Override
     public String toString() {
-        return "Mage " + super.toString() + " [MANA: " + mana + "/" + maxMana + "]";
+        return getName() + " (Mage) " + super.toString() + " [MANA: " + mana + "/" + maxMana + "]";
     }
 }
