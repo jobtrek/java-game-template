@@ -1,5 +1,7 @@
 package ch.jobtrek.game.characters;
 
+import ch.jobtrek.game.rules.CombatRules;
+
 public class Mage extends Character {
     private int mana;
     private int maxMana;
@@ -37,10 +39,12 @@ public class Mage extends Character {
         int damage;
         if (getMana() >= manaCost) {
             setMana(getMana() - manaCost);
-            damage = Math.max(1, getPower() - target.getDefense());
+            damage = CombatRules.calculateDamage(getPower(), 1.0, target.getDefense());
+            damage = CombatRules.applyDamageVariance(damage);
             System.out.println(getName() + " casts Magic Bolt on " + target.getName() + " for " + damage + " damage! (Costs " + manaCost + " mana)");
         } else {
-            damage = Math.max(1, (getPower() / 2) - target.getDefense());
+            damage = CombatRules.calculateDamage(getPower(), 0.5, target.getDefense());
+            damage = CombatRules.applyDamageVariance(damage);
             System.out.println(getName() + " is out of mana! Performing basic magic strike for " + damage + " damage.");
         }
         target.takeDamage(damage);
@@ -51,7 +55,8 @@ public class Mage extends Character {
         int manaCost = 30;
         if (getMana() >= manaCost) {
             setMana(getMana() - manaCost);
-            int damage = Math.max(1, (getPower() * 2) - target.getDefense());
+            int damage = CombatRules.calculateDamage(getPower(), 2.0, target.getDefense());
+            damage = CombatRules.applyDamageVariance(damage);
             System.out.println(getName() + " casts Fireball on " + target.getName() + " for " + damage + " damage! (Costs " + manaCost + " mana)");
             target.takeDamage(damage);
         } else {

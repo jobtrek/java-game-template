@@ -1,5 +1,7 @@
 package ch.jobtrek.game.characters;
 
+import ch.jobtrek.game.rules.CombatRules;
+
 public class Rogue extends Character {
     private int energy;
     private int maxEnergy;
@@ -33,11 +35,13 @@ public class Rogue extends Character {
 
     @Override
     public void executeAttack(Character target) {
-        int damage = Math.max(1, getPower() - target.getDefense());
+        double modifier = 1.0;
         if (this.getSpeed() > target.getSpeed()) {
-            damage += 5;
-            System.out.print("(Speed bonus! +5) ");
+            modifier = 1.2;
+            System.out.print("(Speed bonus! x1.2) ");
         }
+        int damage = CombatRules.calculateDamage(getPower(), modifier, target.getDefense());
+        damage = CombatRules.applyDamageVariance(damage);
         System.out.println(getName() + " performs a quick slash on " + target.getName() + " for " + damage + " damage!");
         target.takeDamage(damage);
     }
@@ -47,7 +51,8 @@ public class Rogue extends Character {
         int energyCost = 40;
         if (getEnergy() >= energyCost) {
             setEnergy(getEnergy() - energyCost);
-            int damage = Math.max(1, (int)(getPower() * 2.5) - target.getDefense());
+            int damage = CombatRules.calculateDamage(getPower(), 2.5, target.getDefense());
+            damage = CombatRules.applyDamageVariance(damage);
             System.out.println(getName() + " performs a Backstab on " + target.getName() + " for " + damage + " damage! (Costs " + energyCost + " energy)");
             target.takeDamage(damage);
         } else {
