@@ -1,6 +1,6 @@
 package ch.jobtrek.game.characters;
 
-public class Character {
+public abstract class Character {
     private String name;
     private int hp;
     private int maxHp;
@@ -59,9 +59,19 @@ public class Character {
         return hp > 0;
     }
 
+    public void onTurnStart() {
+        // Default implementation: nothing
+    }
+
+    public abstract void executeAttack(Character target);
+
+    public abstract void useSpecialAbility(Character target);
+
+    public abstract String describeActions();
+
     @Override
     public String toString() {
-        return String.format("%s [HP: %d/%d, POW: %d, DEF: %d, SPD: %d]",
+        return String.format("%s [HP: %d/%d, POW: %d, DEF: %d, SPD: %d]", 
                              name, hp, maxHp, power, defense, speed);
     }
 }

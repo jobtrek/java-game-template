@@ -7,20 +7,8 @@ import ch.jobtrek.game.characters.Character;
  */
 public class Main {
     public static void main(String[] args) {
-        Character hero = new Character("Hero", 100, 15, 10, 8);
-        System.out.println("Testing encapsulation in Character class:");
-        System.out.println("Initial status: " + hero);
-        
-        System.out.println("Taking 20 damage...");
-        hero.takeDamage(20);
-        System.out.println("Current status: " + hero);
-        
-        System.out.println("Taking 100 damage...");
-        hero.takeDamage(100);
-        System.out.println("Current status: " + hero);
-        
-        System.out.println("Trying to heal 500 hp...");
-        hero.setHp(500);
-        System.out.println("Current status: " + hero);
+        // Character hero = new Character("Hero", 100, 15, 10, 8);
+        System.out.println("The Character class is now abstract and cannot be instantiated directly.");
+        System.out.println("We will be able to create specialized characters in the next task.");
     }
 }
