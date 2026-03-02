@@ -35,6 +35,26 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Reads a valid integer from the scanner within the specified range [min, max].
+     * Handles non-numeric input and out-of-range input by re-prompting.
+     */
+    public static int readValidInt(Scanner scanner, String prompt, int min, int max) {
+        int choice = -1;
+        while (choice < min || choice > max) {
+            System.out.print(prompt);
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+                if (choice < min || choice > max) {
+                    System.out.println("Invalid choice. Please pick between " + min + " and " + max + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+        return choice;
+    }
+
     private static void displayWelcome() {
         System.out.println("========================================");
         System.out.println("   WELCOME TO JAVA MINI GAME BATTLE!    ");
@@ -53,18 +73,7 @@ public class Main {
         System.out.println("   HP: 90  | POW: 13 | DEF: 7  | SPD: 14");
         System.out.println("   Attacks: Quick Slash, Backstab");
 
-        int choice = 0;
-        while (choice < 1 || choice > 3) {
-            System.out.print("\nChoose your class (1-3): ");
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice < 1 || choice > 3) {
-                    System.out.println("Invalid choice. Please pick between 1 and 3.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number.");
-            }
-        }
+        int choice = readValidInt(scanner, "\nChoose your class (1-3): ", 1, 3);
 
         System.out.print("Enter your character's name: ");
         String name = scanner.nextLine();

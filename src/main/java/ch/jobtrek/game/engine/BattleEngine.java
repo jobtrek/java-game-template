@@ -56,16 +56,7 @@ public class BattleEngine {
         System.out.println("Choose your action:");
         System.out.println(player.describeActions());
         
-        // Using a basic choice for now, will refine in Task 11 (error handling)
-        int choice = 0;
-        while (choice != 1 && choice != 2) {
-            try {
-                System.out.print("Choice (1-2): ");
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter 1 or 2.");
-            }
-        }
+        int choice = ch.jobtrek.game.Main.readValidInt(scanner, "Choice (1-2): ", 1, 2);
 
         if (choice == 1) {
             player.executeAttack(target);
