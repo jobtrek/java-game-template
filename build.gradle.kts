@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    id("application")
 }
 
 group = "ch.jobtrek.game"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "ch.jobtrek.game.Main"
+}
 
 repositories {
     mavenCentral()
