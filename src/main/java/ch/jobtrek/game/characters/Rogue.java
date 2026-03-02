@@ -25,15 +25,35 @@ public class Rogue extends Character {
     }
 
     @Override
+    public void onTurnStart() {
+        int regen = 15;
+        setEnergy(getEnergy() + regen);
+        System.out.println(getName() + " regenerates " + regen + " energy.");
+    }
+
+    @Override
     public void executeAttack(Character target) {
-        // Placeholder for Task 07
-        System.out.println(getName() + " performs a quick slash on " + target.getName());
+        int damage = Math.max(1, getPower() - target.getDefense());
+        if (this.getSpeed() > target.getSpeed()) {
+            damage += 5;
+            System.out.print("(Speed bonus! +5) ");
+        }
+        System.out.println(getName() + " performs a quick slash on " + target.getName() + " for " + damage + " damage!");
+        target.takeDamage(damage);
     }
 
     @Override
     public void useSpecialAbility(Character target) {
-        // Placeholder for Task 07
-        System.out.println(getName() + " performs a Backstab on " + target.getName());
+        int energyCost = 40;
+        if (getEnergy() >= energyCost) {
+            setEnergy(getEnergy() - energyCost);
+            int damage = Math.max(1, (int)(getPower() * 2.5) - target.getDefense());
+            System.out.println(getName() + " performs a Backstab on " + target.getName() + " for " + damage + " damage! (Costs " + energyCost + " energy)");
+            target.takeDamage(damage);
+        } else {
+            System.out.println(getName() + " doesn't have enough energy for Backstab!");
+            executeAttack(target);
+        }
     }
 
     @Override

@@ -25,15 +25,39 @@ public class Mage extends Character {
     }
 
     @Override
+    public void onTurnStart() {
+        int regen = 10;
+        setMana(getMana() + regen);
+        System.out.println(getName() + " regenerates " + regen + " mana.");
+    }
+
+    @Override
     public void executeAttack(Character target) {
-        // Placeholder for Task 07
-        System.out.println(getName() + " casts a magic bolt on " + target.getName());
+        int manaCost = 10;
+        int damage;
+        if (getMana() >= manaCost) {
+            setMana(getMana() - manaCost);
+            damage = Math.max(1, getPower() - target.getDefense());
+            System.out.println(getName() + " casts Magic Bolt on " + target.getName() + " for " + damage + " damage! (Costs " + manaCost + " mana)");
+        } else {
+            damage = Math.max(1, (getPower() / 2) - target.getDefense());
+            System.out.println(getName() + " is out of mana! Performing basic magic strike for " + damage + " damage.");
+        }
+        target.takeDamage(damage);
     }
 
     @Override
     public void useSpecialAbility(Character target) {
-        // Placeholder for Task 07
-        System.out.println(getName() + " casts Fireball on " + target.getName());
+        int manaCost = 30;
+        if (getMana() >= manaCost) {
+            setMana(getMana() - manaCost);
+            int damage = Math.max(1, (getPower() * 2) - target.getDefense());
+            System.out.println(getName() + " casts Fireball on " + target.getName() + " for " + damage + " damage! (Costs " + manaCost + " mana)");
+            target.takeDamage(damage);
+        } else {
+            System.out.println(getName() + " doesn't have enough mana for Fireball!");
+            executeAttack(target);
+        }
     }
 
     @Override

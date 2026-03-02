@@ -1,4 +1,5 @@
 package ch.jobtrek.game;
+import ch.jobtrek.game.characters.Character;
 import ch.jobtrek.game.characters.Warrior;
 import ch.jobtrek.game.characters.Mage;
 import ch.jobtrek.game.characters.Rogue;
@@ -9,18 +10,23 @@ import ch.jobtrek.game.characters.Rogue;
  */
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Gimli");
-        Mage mage = new Mage("Gandalf");
-        Rogue rogue = new Rogue("Legolas");
+        // Polymorphism: treating specific types as the base Character type
+        Character player = new Warrior("Aragon");
+        Character enemy = new Mage("Gandalf");
 
-        System.out.println("Testing inheritance with specialized classes:");
-        System.out.println(warrior);
-        System.out.println(mage);
-        System.out.println(rogue);
+        System.out.println("Testing polymorphism:");
+        System.out.println("Player: " + player);
+        System.out.println("Enemy: " + enemy);
         
-        System.out.println("\nTesting placeholder actions:");
-        warrior.executeAttack(mage);
-        mage.useSpecialAbility(rogue);
-        rogue.executeAttack(warrior);
+        System.out.println("\n--- Round 1 ---");
+        player.onTurnStart();
+        player.executeAttack(enemy);
+        
+        enemy.onTurnStart();
+        enemy.useSpecialAbility(player);
+        
+        System.out.println("\nStatus after Round 1:");
+        System.out.println(player);
+        System.out.println(enemy);
     }
 }
