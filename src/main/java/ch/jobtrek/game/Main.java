@@ -1,9 +1,10 @@
 package ch.jobtrek.game;
+
 import ch.jobtrek.game.characters.Character;
 import ch.jobtrek.game.characters.Warrior;
 import ch.jobtrek.game.characters.Mage;
-import ch.jobtrek.game.characters.Rogue;
-import ch.jobtrek.game.rules.CombatRules;
+import ch.jobtrek.game.engine.BattleEngine;
+import java.util.Scanner;
 
 
 /**
@@ -11,20 +12,15 @@ import ch.jobtrek.game.rules.CombatRules;
  */
 public class Main {
     public static void main(String[] args) {
-        Character player = new Rogue("Legolas");
-        Character enemy = new Warrior("Gimli");
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Starting a quick demo battle...");
+        Character player = new Warrior("Aragon");
+        Character enemy = new Mage("Gandalf");
 
-        System.out.println("Testing CombatRules:");
-        System.out.println("Player: " + player);
-        System.out.println("Enemy: " + enemy);
+        BattleEngine engine = new BattleEngine(player, enemy, scanner);
+        engine.startBattle();
         
-        Character first = CombatRules.getFirstAttacker(player, enemy);
-        System.out.println("First to attack: " + first.getName());
-        
-        System.out.println("\n--- Round 1 (Multiple attempts to see variance) ---");
-        for (int i = 0; i < 3; i++) {
-            System.out.print("Attempt " + (i+1) + ": ");
-            player.executeAttack(enemy);
-        }
+        scanner.close();
     }
 }
